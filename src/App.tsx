@@ -1,12 +1,12 @@
 import React from 'react';
-import './App.css';
+import styles from './App.module.scss';
 import { FormattedMessage, IntlProvider } from 'react-intl';
 import messages from './lang/en.json';
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
+        <div className={styles.app}>
+            <header className={styles.appHeader}>
                 <IntlProvider locale="en" messages={messages.translations}>
                     <FormattedMessage tagName="h1" id="classesList.classes"/>
                     <FormattedMessage tagName="h1" values={{ studentsCount: 1 }} id="studentsList.students"/>
