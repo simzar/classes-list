@@ -1,10 +1,10 @@
 import React from 'react';
-import ClassesContainer from '../ClassesContainer';
+import ClassroomsContainer from '../ClassroomsContainer';
 import classes from './App.module.scss';
 
 const App: React.FC = () => (
     <div className={classes.wrapper}>
-        <ClassesContainer/>
+        <ClassroomsContainer/>
     </div>
 );
 

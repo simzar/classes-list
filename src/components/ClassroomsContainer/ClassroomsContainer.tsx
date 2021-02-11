@@ -1,10 +1,10 @@
 import React from 'react';
-import classes from './ClassesContainer.module.scss';
+import classes from './ClassroomsContainer.module.scss';
 import { FormattedMessage, IntlShape } from 'react-intl';
-import add from '../assets/icons/add.svg';
-import Button from '../components/Button';
+import addIcon from '../../assets/icons/add.svg';
+import Button from '../Button';
 
-interface ClassesContainerProps  {
+interface ClassroomsContainerProps  {
     intl: IntlShape;
 }
 
@@ -12,14 +12,14 @@ const schoolClasses = [
     '1A', '1B', '1C'
 ];
 
-const ClassesContainer: React.FC<ClassesContainerProps> = ({ intl }) => (
+const ClassroomsContainer: React.FC<ClassroomsContainerProps> = ({ intl }) => (
     <div className={classes.wrapper}>
         <div className={classes.header}>
-            <FormattedMessage tagName="h1" id="classesContainer.header"/>
+            <FormattedMessage tagName="h1" id="classroomsContainer.header"/>
             <Button
                 onClick={() => console.log('add')}
-                icon={add}
-                alt={intl.formatMessage({ id: 'classesContainer.alt.add' })}
+                icon={addIcon}
+                alt={intl.formatMessage({ id: 'classroomsContainer.alt.add' })}
             />
         </div>
         <div className={classes.list}>
@@ -30,4 +30,4 @@ const ClassesContainer: React.FC<ClassesContainerProps> = ({ intl }) => (
     </div>
 );
 
-export default ClassesContainer;
+export default ClassroomsContainer;
