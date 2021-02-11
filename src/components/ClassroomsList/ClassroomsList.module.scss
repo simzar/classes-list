@@ -1,19 +1,68 @@
 .wrapper {
     background: #FFFCFA;
     flex: 1;
+    height: 640px;
     max-width: 240px;
+    overflow-y: auto;
     padding: 24px 8px;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 33px;
     padding: 0 16px;
 }
 
 .list {
-    padding: 0 16px;
+    margin: 33px -8px 16px;
+}
+
+.listItem {
+    color: #92082C;
+    display: block;
+    // FIXME: get fonts
+    font-family: 'Inter', serif;
+    font-size: 16px;
+    font-weight: 600;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    padding: 0 24px;
+
+    &:hover,
+    &:focus-visible {
+        background: #fde5e960;
+        outline: none;
+    }
+}
+
+.activeListItem {
+    background: #fde5e9;
+
+    &:hover {
+        background: #FDE5E9;
+    }
+}
+
+.inputWrapper {
+    border-color: #CCCAC8;
+    color: #131415;
+    // FIXME: get fonts
+    font-family: 'Inter', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 4px;
+    padding: 0 8px;
+
+    input {
+        background: #FFFFFF;
+        // I really don't want to make a content-editable span instead of an accessible input just to set the
+        // caret width :(
+        caret-color: #0085FF;
+        height: 32px;
+        padding: 4px 16px;
+    }
 }
 
 .buttonAdd {

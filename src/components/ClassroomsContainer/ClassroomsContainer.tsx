@@ -1,12 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import { Route } from 'react-router';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import classes from './ClassroomsContainer.module.scss';
 import ClassroomsList from '../ClassroomsList';
 import StudentsList from '../StudentsList';
 
 const schoolClasses = [
-    '1A', '1B', '1C'
+    '1A', '1B', '1C', '1D'
 ];
 
 const students = [

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
 import Button from '../Button';
 import addIcon from '../../assets/icons/add.svg';
 import { WithIntlProp } from '../../utils/types';
@@ -24,10 +25,16 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
         </div>
         <div className={classes.list}>
             {classrooms.map(schoolClass => (
-                <Link key={schoolClass} to={schoolClass}>
-                    <h2 key={schoolClass}>{schoolClass}</h2>
-                </Link>
+                <NavLink
+                    key={schoolClass}
+                    to={schoolClass}
+                    className={classes.listItem}
+                    activeClassName={classes.activeListItem}
+                >
+                    {schoolClass}
+                </NavLink>
             ))}
+            <TextField className={classes.inputWrapper} variant="outlined" placeholder="Add Class"/>
         </div>
     </div>
 );
