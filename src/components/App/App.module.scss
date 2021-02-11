@@ -1,4 +1,7 @@
 .wrapper {
-    //margin: auto;
-//    TODO: remove?
+    padding-top: 48px;
+
+    @media(min-width: 816px) {
+        padding: 48px;
+    }
 }

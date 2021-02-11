@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import classes from './Button.module.scss';
 
 interface ButtonProps {
-    onClick: MouseEventHandler;
+    onClick: MouseEventHandler<HTMLButtonElement>;
     icon: string;
     alt: string;
 }
