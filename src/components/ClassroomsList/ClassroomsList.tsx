@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import Button from '../Button';
 import addIcon from '../../assets/icons/add.svg';
 import { WithIntlProp } from '../../utils/types';
@@ -23,7 +24,9 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
         </div>
         <div className={classes.list}>
             {classrooms.map(schoolClass => (
-                <h2 key={schoolClass}>{schoolClass}</h2>
+                <Link key={schoolClass} to={schoolClass}>
+                    <h2 key={schoolClass}>{schoolClass}</h2>
+                </Link>
             ))}
         </div>
     </div>
