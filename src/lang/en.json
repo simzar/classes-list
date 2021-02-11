@@ -1,8 +1,8 @@
 {
   "translations": {
-    "classesList.classes": "Classes",
-    "classesList.placeholder.addClass": "Add Class",
-    "classesList.alt.add": "Add",
+    "classesContainer.header": "Classes",
+    "classesContainer.placeholder.addClass": "Add Class",
+    "classesContainer.alt.add": "Add",
 
     "studentsList.students": "{studentsCount} {studentsCount, plural, one {student} other {students}}",
     "studentsList.moveTo": "Move to",

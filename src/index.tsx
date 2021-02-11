@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.module.scss';
+import './index.scss';
 import { IntlProvider } from 'react-intl';
 import messages from './lang/en.json';
-import App from './Home';
+import App from './App';
 
 ReactDOM.render(
     <React.StrictMode>
