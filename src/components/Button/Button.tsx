@@ -1,5 +1,4 @@
 import React, { MouseEventHandler } from 'react';
-import IconButton from '@material-ui/core/IconButton';
 import classes from './Button.module.scss';
 
 interface ButtonProps {
@@ -10,9 +9,9 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({ onClick, className, Icon, alt }) => (
-    <IconButton onClick={onClick} classes={{ root: `${classes.root} ${className}` }}>
+    <button onClick={onClick} className={`${classes.root} ${className}`}>
         <Icon title={alt} />
-    </IconButton>
+    </button>
 );
 
 export default Button;

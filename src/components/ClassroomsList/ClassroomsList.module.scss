@@ -38,7 +38,8 @@
 .activeListItem {
     background: #fde5e9;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         background: #FDE5E9;
     }
 }
