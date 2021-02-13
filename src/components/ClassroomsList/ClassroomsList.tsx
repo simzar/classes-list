@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { NavLink } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
 import Button from '../Button';
-import addIcon from '../../assets/icons/add.svg';
+import { ReactComponent as Add } from '../../assets/icons/add.svg';
 import { WithIntlProp } from '../../utils/types';
 import classes from './ClassroomsList.module.scss';
+import InputField from '../InputField';
 
 
 interface ClassroomsListProps extends WithIntlProp {
@@ -19,7 +19,7 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
             <FormattedMessage tagName="h1" id="classroomsContainer.header"/>
             <Button
                 onClick={(e) => addClassroom(e, 'new class')}
-                icon={addIcon}
+                Icon={Add}
                 alt={intl.formatMessage({ id: 'classroomsContainer.alt.add' })}
             />
         </div>
@@ -34,8 +34,8 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
                     {schoolClass}
                 </NavLink>
             ))}
-            <TextField className={classes.inputWrapper} variant="outlined" placeholder="Add Class"/>
         </div>
+        <InputField placeholder="Add Class"/>
     </div>
 );
 

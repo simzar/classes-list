@@ -2,4 +2,21 @@
     background: white;
     flex: 1;
     max-width: 480px;
+    padding: 24px;
+}
+
+.headerSubtext {
+    margin-left: 16px;
+    opacity: .4;
+}
+
+.input {
+    margin: 24px 0 16px;
+
+    input {
+        font-size: 16px;
+        line-height: 24px;
+        height: 40px;
+        padding: 0 16px;
+    }
 }

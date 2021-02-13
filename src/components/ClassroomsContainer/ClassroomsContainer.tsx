@@ -9,9 +9,11 @@ const schoolClasses = [
 ];
 
 const students = [
-    'Steve',
-    'John',
-    'Eve'
+    { id: '1', name: 'Steve Johnson' },
+    { id: '2', name: 'John Peter Paul' },
+    { id: '3', name: 'Peter Gutenberg' },
+    { id: '8', name: 'Ada Lovelas' },
+    { id: '11', name: 'Angela' },
 ];
 
 const ClassroomsContainer: React.FC = () => {
@@ -23,7 +25,7 @@ const ClassroomsContainer: React.FC = () => {
                 <Switch>
                     {schoolClasses.map(schoolClass => (
                         <Route key={schoolClass} path={`/${schoolClass}`}>
-                            <StudentsList students={students} classroomName={schoolClass} />
+                            <StudentsList students={students} name={schoolClass} />
                         </Route>
                     ))}
                 </Switch>

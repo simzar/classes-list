@@ -1,6 +1,16 @@
-h1 {
-    font-family: 'Noticia Text', serif;
-    font-size: 24px;
-    font-weight: 700;
-    margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noticia+Text:wght@700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+
+    h1 {
+        color: #131415;
+        font-family: 'Noticia Text', serif;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 32px;
+        margin: 0;
+    }
 }

@@ -1,3 +1,16 @@
 .root {
     padding: 0;
+
+    svg {
+        fill: #E62557;
+        transition: fill 0.3s ease;
+    }
+
+    &:hover {
+        background-color: inherit;
+
+        svg {
+            fill: #AD0934;
+        }
+    }
 }

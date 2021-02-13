@@ -1,0 +1,20 @@
+.wrapper {
+    border-color: #CCCAC8;
+    color: #131415;
+    font-weight: 600;
+    margin-top: 4px;
+    width: 100%;
+
+    input {
+        background: #FFFFFF;
+        // FIXME:
+        // I really don't want to make a content-editable span instead of an accessible input just to set the
+        // caret width :(
+        caret-color: #0085FF;
+        height: 32px;
+
+        font-size: 16px;
+        line-height: 24px;
+        padding: 0 16px;
+    }
+}
