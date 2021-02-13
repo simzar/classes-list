@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import classes from './ClassroomsContainer.module.scss';
 import ClassroomsList from '../ClassroomsList';
 import StudentsList from '../StudentsList';
@@ -19,7 +19,7 @@ const students = [
 const ClassroomsContainer: React.FC = () => {
 
     return (
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
             <div className={classes.wrapper}>
                 <ClassroomsList classrooms={schoolClasses} addClassroom={(e, v) => console.log('add: ', v)}/>
                 <Switch>
@@ -28,6 +28,9 @@ const ClassroomsContainer: React.FC = () => {
                             <StudentsList students={students} name={schoolClass} />
                         </Route>
                     ))}
+                    <Route>
+                        <Redirect to={`${schoolClasses[0]}`} />
+                    </Route>
                 </Switch>
             </div>
         </Router>
