@@ -1,6 +1,7 @@
 import React, { HTMLProps, useEffect, useRef, useState } from 'react';
-import classes from './StudentsList.module.scss';
 import { FormattedMessage } from 'react-intl';
+import { useLocation } from 'react-router-dom';
+import classes from './StudentsList.module.scss';
 import { Classroom, Student, StudentFormValues } from '../../utils/types';
 import StudentsListItem from '../StudentsListItem';
 import { Field, Form, Formik } from 'formik';
@@ -9,34 +10,43 @@ import { MAX_STUDENT_NAME_LENGTH } from '../../utils/constants';
 import { executeOnEnter } from '../../utils';
 
 interface StudentsListProps {
-    name: string | null;
     addStudent: (classroomName: string, values: StudentFormValues) => Promise<Classroom>;
+    removeStudent: (classroomName: string, studentId: string) => Promise<Classroom>;
     fetchClassroom: (classroomName: string) => Promise<Classroom | null>;
 }
 
-const StudentsList: React.FC<StudentsListProps> = ({ name, fetchClassroom, addStudent }) => {
+const StudentsList: React.FC<StudentsListProps> = ({ fetchClassroom, removeStudent, addStudent }) => {
+    const { pathname } = useLocation();
+    const classroomName = pathname?.slice(1);
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [students, setStudents] = useState<Student[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isNoClassSelected, setIsNoClassSelected] = useState<boolean>(false);
 
     useEffect(() => {
         const loadStudents = async () => {
-            if (!name) return;
-
             setIsLoading(true);
-            const classroom = await fetchClassroom(name);
+            const classroom = await fetchClassroom(classroomName);
             setStudents(classroom?.students ?? []);
+
+            setIsNoClassSelected(!classroom);
             setIsLoading(false);
         };
 
         loadStudents();
-    }, [name]);
+    }, [classroomName]);
+
+    const handleRemoveStudent = async (studentId: string) => {
+        const classroom = await removeStudent(classroomName, studentId);
+        setStudents(classroom?.students ?? []);
+    };
 
     return (
         <div className={classes.wrapper}>
             <h1>
-                {isLoading ? 'Loading' : name ?? 'No classroom selected'}
+                {isLoading ? 'Loading' : isNoClassSelected ? 'Please select a classroom' : classroomName}
                 <span className={classes.headerSubtext}>
                     <FormattedMessage
                         id="studentsList.students"
@@ -44,12 +54,12 @@ const StudentsList: React.FC<StudentsListProps> = ({ name, fetchClassroom, addSt
                     />
                 </span>
             </h1>
-            {name && (
+            {classroomName && (
                 <Formik
                     initialValues={{ studentName: '' }}
                     onSubmit={async (values, { resetForm }) => {
                         try {
-                            const classroom = await addStudent(name, values);
+                            const classroom = await addStudent(classroomName, values);
 
                             resetForm();
                             setStudents(classroom.students);
@@ -80,7 +90,7 @@ const StudentsList: React.FC<StudentsListProps> = ({ name, fetchClassroom, addSt
                 <StudentsListItem
                     key={student.id}
                     handleMoveClick={(id) => console.log('move: ', id)}
-                    handleRemoveClick={(id) => console.log('remove: ', id)}
+                    handleRemoveClick={(id) => handleRemoveStudent(id)}
                     {...student}
                 />
             ))}

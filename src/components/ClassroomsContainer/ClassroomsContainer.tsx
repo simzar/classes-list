@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import localforage from 'localforage';
 import { v4 as uuid } from 'uuid';
 import classes from './ClassroomsContainer.module.scss';
@@ -62,6 +62,17 @@ const ClassroomsContainer: React.FC = () => {
         return localforage.getItem<Classroom>(classroomName);
     };
 
+    const removeStudent = async (classroomName: string, studentId: string) => {
+        await sleep();
+
+        const existingClassroom = await localforage.getItem<Classroom>(classroomName) as Classroom;
+
+        return localforage.setItem(classroomName, {
+            ...existingClassroom,
+            students: existingClassroom.students.filter(({ id }) => id !== studentId),
+        });
+    };
+
     return (
         <Router basename={process.env.PUBLIC_URL}>
             <div className={classes.wrapper}>
@@ -70,19 +81,11 @@ const ClassroomsContainer: React.FC = () => {
                     classrooms={classrooms}
                     addClassroom={(v) => addClassroom(v)}
                 />
-                <Switch>
-                    {classrooms.map(classroom => (
-                        <Route key={classroom} path={`/${classroom}`}>
-                            <StudentsList name={classroom} addStudent={addStudent} fetchClassroom={fetchClassroom}/>
-                        </Route>
-                    ))}
-                    <Route exact path={'/'}>
-                        <StudentsList name={null} addStudent={addStudent} fetchClassroom={fetchClassroom}/>
-                    </Route>
-                    <Route>
-                        <Redirect to={`${classrooms[0] ?? ''}`}/>
-                    </Route>
-                </Switch>
+                <StudentsList
+                    addStudent={addStudent}
+                    fetchClassroom={fetchClassroom}
+                    removeStudent={removeStudent}
+                />
             </div>
         </Router>
     );
