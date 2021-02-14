@@ -1,15 +1,27 @@
-import React, { MouseEventHandler } from 'react';
+import React, { HTMLProps, MouseEventHandler, SVGProps } from 'react';
 import classes from './Button.module.scss';
 
-interface ButtonProps {
+interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     alt: string;
-    className?: string;
-    onClick: MouseEventHandler<HTMLButtonElement>;
-    Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & { title?: string }>;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+    Icon: React.FC<SVGProps<SVGSVGElement> & { title?: string }>;
+    type?: "button" | "submit" | "reset" | undefined;
+    isLoading?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, className, Icon, alt }) => (
-    <button onClick={onClick} className={`${classes.root} ${className}`}>
+const Button: React.FC<ButtonProps> = ({
+    type = 'button',
+    Icon,
+    alt,
+    className,
+    disabled = false,
+    isLoading = false,
+...restProps }) => (
+    <button
+        {...restProps}
+        disabled={disabled || isLoading}
+        className={`${classes.root} ${isLoading ? classes.loading : ''} ${className}`}
+    >
         <Icon title={alt} />
     </button>
 );

@@ -24,7 +24,10 @@
     font-weight: 600;
     height: 40px;
     line-height: 40px;
+    max-width: 100%;
+    overflow: hidden;
     text-decoration: none;
+    text-overflow: ellipsis;
     transition: background 0.3s ease;
     padding: 0 24px;
 

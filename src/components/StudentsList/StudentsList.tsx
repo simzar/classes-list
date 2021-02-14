@@ -1,12 +1,12 @@
 import React from 'react';
 import classes from './StudentsList.module.scss';
 import { FormattedMessage } from 'react-intl';
-import InputField from '../InputField';
 import { Student } from '../../utils/types';
 import StudentsListItem from '../StudentsListItem';
 
 interface StudentsListProps {
-    students: Student[];
+    // FIXME: remove
+    students?: Student[];
     name: string;
 }
 
@@ -22,7 +22,8 @@ const StudentsList: React.FC<StudentsListProps> = ({ name, students = [] }) => {
                     />
                 </span>
             </h1>
-            <InputField className={classes.input} placeholder="Add Student"/>
+            {/*FIXME*/}
+            {/*<InputField className={classes.input} placeholder="Add Student"/>*/}
             {students?.map(student => (
                 <StudentsListItem
                     key={student.id}
