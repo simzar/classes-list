@@ -1,9 +1,12 @@
 .root {
+    align-self: center;
     background: inherit;
     border: none;
     cursor: pointer;
+    height: 24px;
     outline: none;
     padding: 0;
+    width: 24px;
 
     svg {
         fill: #E62557;
@@ -12,8 +15,24 @@
 
     &:focus-visible,
     &:hover {
+        animation: spinner 1.2s infinite;
+
         svg {
             fill: #AD0934;
         }
+    }
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    50% {
+        transform: rotate(900deg);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    100% {
+        transform: rotate(1800deg);
     }
 }
