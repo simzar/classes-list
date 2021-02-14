@@ -18,6 +18,9 @@ export interface Classroom {
 export type ClassroomPreview = string;
 
 export interface StudentFormValues {
+    studentName: string;
+}
+
+export interface ClassroomFormValues {
     name: string;
 }
-export type ClassroomFormValues = StudentFormValues;

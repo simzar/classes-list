@@ -1,3 +1,4 @@
+import { HTMLProps } from 'react';
 import { ClassroomPreview } from './types';
 
 export const sleep = (ms: number = 1200) =>
@@ -16,4 +17,8 @@ export const naivelyCompareClassrooms = (a: ClassroomPreview, b: ClassroomPrevie
     }
 
     return aYear < bYear ? -1 : 1;
+};
+
+export const executeOnEnter = (event: HTMLProps<KeyboardEvent>, fn: Function) => {
+    event.key === 'Enter' && fn();
 };

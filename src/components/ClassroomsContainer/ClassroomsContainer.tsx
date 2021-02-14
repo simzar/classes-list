@@ -6,7 +6,7 @@ import classes from './ClassroomsContainer.module.scss';
 import ClassroomsList from '../ClassroomsList';
 import StudentsList from '../StudentsList';
 import { naivelyCompareClassrooms, sleep } from '../../utils';
-import { ClassroomFormValues, ClassroomPreview } from '../../utils/types';
+import { Classroom, ClassroomFormValues, ClassroomPreview, StudentFormValues } from '../../utils/types';
 
 const ClassroomsContainer: React.FC = () => {
     const [classrooms, setClassrooms] = useState<ClassroomPreview[]>([]);
@@ -34,12 +34,32 @@ const ClassroomsContainer: React.FC = () => {
             throw new Error('Classroom already exists');
         }
 
-        await localforage.setItem(name, { id: uuid(), name, students: [] });
+        await localforage.setItem<Classroom>(name, { id: uuid(), name, students: [] });
 
-        const updatedClassroomsList = [...classrooms, name];
-        updatedClassroomsList.sort(naivelyCompareClassrooms);
-        console.log(updatedClassroomsList);
-        setClassrooms(updatedClassroomsList);
+        setClassrooms([...classrooms, name].sort(naivelyCompareClassrooms));
+    };
+
+    const addStudent = async (classroomName: string, { studentName }: StudentFormValues) => {
+        await sleep();
+
+        const existingClassroom = await localforage.getItem<Classroom>(classroomName) as Classroom;
+
+        return localforage.setItem<Classroom>(classroomName, {
+            ...existingClassroom,
+            students: [
+                ...(existingClassroom?.students ?? []),
+                {
+                    id: uuid(),
+                    name: studentName,
+                }
+            ].sort(),
+        });
+    };
+
+    const fetchClassroom = async (classroomName: string) => {
+        await sleep();
+
+        return localforage.getItem<Classroom>(classroomName);
     };
 
     return (
@@ -53,9 +73,12 @@ const ClassroomsContainer: React.FC = () => {
                 <Switch>
                     {classrooms.map(classroom => (
                         <Route key={classroom} path={`/${classroom}`}>
-                            <StudentsList name={classroom}/>
+                            <StudentsList name={classroom} addStudent={addStudent} fetchClassroom={fetchClassroom}/>
                         </Route>
                     ))}
+                    <Route exact path={'/'}>
+                        <StudentsList name={null} addStudent={addStudent} fetchClassroom={fetchClassroom}/>
+                    </Route>
                     <Route>
                         <Redirect to={`${classrooms[0] ?? ''}`}/>
                     </Route>
