@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import classes from './ClassroomsContainer.module.scss';
 import ClassroomsList from '../ClassroomsList';
 import StudentsList from '../StudentsList';
-import { naivelyCompareClassrooms, sleep } from '../../utils';
+import { compareStudents, naivelyCompareClassrooms, sleep } from '../../utils';
 import { Classroom, ClassroomFormValues, ClassroomPreview, StudentFormValues } from '../../utils/types';
 
 const ClassroomsContainer: React.FC = () => {
@@ -40,7 +40,7 @@ const ClassroomsContainer: React.FC = () => {
     };
 
     const addStudent = async (classroomName: string, { studentName }: StudentFormValues) => {
-        await sleep();
+        await sleep(400);
 
         const existingClassroom = await localforage.getItem<Classroom>(classroomName) as Classroom;
 
@@ -52,12 +52,12 @@ const ClassroomsContainer: React.FC = () => {
                     id: uuid(),
                     name: studentName,
                 }
-            ].sort(),
+            ].sort(compareStudents),
         });
     };
 
     const fetchClassroom = async (classroomName: string) => {
-        await sleep();
+        await sleep(400);
 
         return localforage.getItem<Classroom>(classroomName);
     };
