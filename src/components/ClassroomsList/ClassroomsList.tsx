@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import Button from '../Button';
@@ -8,19 +8,20 @@ import classes from './ClassroomsList.module.scss';
 import InputField from '../InputField';
 import { Formik, Field, Form } from 'formik';
 
-
 interface ClassroomsListProps extends WithIntlProp {
     classrooms: ClassroomPreview[];
     addClassroom: (classroom: ClassroomFormValues) => void;
+    isLoading: boolean;
 }
 
-const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroom, intl }) => (
+const MAX_CLASSROOM_NAME_LENGTH = 50;
+
+const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroom, intl, isLoading }) => (
     <div className={classes.wrapper}>
         <Formik
             initialValues={{ name: '' }}
             onSubmit={async (values, { resetForm }) => {
                 try {
-                    if (!values.name) return;
                     await addClassroom(values);
                     resetForm();
                 } catch (e) {
@@ -35,7 +36,7 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
                             <FormattedMessage tagName="h1" id="classroomsContainer.header"/>
                             <Button
                                 type="submit"
-                                isLoading={isSubmitting}
+                                isLoading={isSubmitting || isLoading}
                                 Icon={Add}
                                 alt={intl.formatMessage({ id: 'classroomsContainer.alt.add' })}
                             />
@@ -56,11 +57,13 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
                             name="name"
                             component={InputField}
                             placeholder="Add Class"
-                            disabled={isSubmitting}
-                            onChange={(e: any) => setFieldValue('name', e.target.value?.toUpperCase())}
+                            disabled={isSubmitting || isLoading}
+                            onChange={(e: FormEvent<HTMLInputElement>) =>
+                                setFieldValue('name', e.currentTarget.value?.toUpperCase().slice(0, MAX_CLASSROOM_NAME_LENGTH))}
+                            validate={(value: string) => !!value.trim() ? undefined : 'Value cannot be empty'}
                         />
                     </Form>
-                )
+                );
             }}
         </Formik>
     </div>

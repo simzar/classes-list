@@ -10,17 +10,20 @@ import { ClassroomFormValues, ClassroomPreview } from '../../utils/types';
 
 const ClassroomsContainer: React.FC = () => {
     const [classrooms, setClassrooms] = useState<ClassroomPreview[]>([]);
+    const [isLoadingClassrooms, setIsLoadingClassrooms] = useState<boolean>(false);
 
     useEffect(() => {
         fetchClassroomsList();
     }, []);
 
     const fetchClassroomsList = async () => {
+        setIsLoadingClassrooms(true);
         await sleep();
 
         const classroomsList = await localforage.keys();
 
         setClassrooms(classroomsList.sort(naivelyCompareClassrooms));
+        setIsLoadingClassrooms(false);
     };
 
     const addClassroom = async ({ name }: ClassroomFormValues) => {
@@ -33,18 +36,20 @@ const ClassroomsContainer: React.FC = () => {
 
         await localforage.setItem(name, { id: uuid(), name, students: [] });
 
-        setClassrooms(
-            [
-                ...classrooms,
-                name,
-            ].sort(naivelyCompareClassrooms)
-        );
+        const updatedClassroomsList = [...classrooms, name];
+        updatedClassroomsList.sort(naivelyCompareClassrooms);
+        console.log(updatedClassroomsList);
+        setClassrooms(updatedClassroomsList);
     };
 
     return (
         <Router basename={process.env.PUBLIC_URL}>
             <div className={classes.wrapper}>
-                <ClassroomsList classrooms={classrooms} addClassroom={(v) => addClassroom(v)}/>
+                <ClassroomsList
+                    isLoading={isLoadingClassrooms}
+                    classrooms={classrooms}
+                    addClassroom={(v) => addClassroom(v)}
+                />
                 <Switch>
                     {classrooms.map(classroom => (
                         <Route key={classroom} path={`/${classroom}`}>

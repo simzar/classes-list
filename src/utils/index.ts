@@ -11,7 +11,7 @@ export const naivelyCompareClassrooms = (a: ClassroomPreview, b: ClassroomPrevie
     const aYear = parseInt(a);
     const bYear = parseInt(b);
 
-    if (aYear === bYear) {
+    if (!aYear || !bYear || aYear === bYear) {
         return a < b ? -1 : 1;
     }
 

@@ -3,7 +3,6 @@
     flex: 1;
     height: 640px;
     max-width: 240px;
-    overflow-y: auto;
     padding: 24px 8px;
 }
 
@@ -16,6 +15,8 @@
 
 .list {
     margin: 33px -8px 0;
+    max-height: 518px;
+    overflow-y: auto;
 }
 
 .listItem {
