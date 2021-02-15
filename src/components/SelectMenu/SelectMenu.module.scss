@@ -1,0 +1,25 @@
+.root {
+    max-height: 400px;
+    max-width: 250px;
+    min-width: 115px;
+    overflow-x: hidden;
+    padding: 16px 0 8px;
+}
+
+.title {
+    color: #777777;
+    font-size: 12px;
+    letter-spacing: 2px;
+    line-height: 24px;
+    margin-bottom: 8px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.listItem {
+    color: #131415;
+    font-family: Inter, 'serif';
+    letter-spacing: normal;
+    height: 40px;
+    padding: 8px 16px;
+}
