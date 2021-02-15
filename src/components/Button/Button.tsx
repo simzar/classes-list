@@ -1,4 +1,4 @@
-import React, { HTMLProps, MouseEventHandler, SVGProps } from 'react';
+import React, { HTMLProps, MouseEventHandler, RefObject, SVGProps } from 'react';
 import classes from './Button.module.scss';
 
 interface ButtonProps extends HTMLProps<HTMLButtonElement> {
@@ -16,7 +16,8 @@ const Button: React.FC<ButtonProps> = ({
     className,
     disabled = false,
     isLoading = false,
-...restProps }) => (
+    ...restProps
+}) => (
     <button
         {...restProps}
         disabled={disabled || isLoading}

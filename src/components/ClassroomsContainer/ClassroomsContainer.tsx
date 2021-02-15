@@ -4,9 +4,9 @@ import localforage from 'localforage';
 import { v4 as uuid } from 'uuid';
 import classes from './ClassroomsContainer.module.scss';
 import ClassroomsList from '../ClassroomsList';
-import StudentsList from '../StudentsList';
 import { compareStudents, naivelyCompareClassrooms, sleep } from '../../utils';
-import { Classroom, ClassroomFormValues, ClassroomPreview, StudentFormValues } from '../../utils/types';
+import { Classroom, ClassroomFormValues, ClassroomPreview, Student, StudentFormValues } from '../../utils/types';
+import StudentsListWrapper from '../StudentsListWrapper';
 
 const ClassroomsContainer: React.FC = () => {
     const [classrooms, setClassrooms] = useState<ClassroomPreview[]>([]);
@@ -26,7 +26,7 @@ const ClassroomsContainer: React.FC = () => {
         setIsLoadingClassrooms(false);
     };
 
-    const addClassroom = async ({ name }: ClassroomFormValues) => {
+    const createClassroom = async ({ name }: ClassroomFormValues) => {
         await sleep();
         const existingClassroom = await localforage.getItem(name);
 
@@ -39,7 +39,7 @@ const ClassroomsContainer: React.FC = () => {
         setClassrooms([...classrooms, name].sort(naivelyCompareClassrooms));
     };
 
-    const addStudent = async (classroomName: string, { studentName }: StudentFormValues) => {
+    const insertStudent = async (classroomName: string, { name, id }: Student) => {
         await sleep(400);
 
         const existingClassroom = await localforage.getItem<Classroom>(classroomName) as Classroom;
@@ -49,12 +49,15 @@ const ClassroomsContainer: React.FC = () => {
             students: [
                 ...(existingClassroom?.students ?? []),
                 {
-                    id: uuid(),
-                    name: studentName,
+                    id,
+                    name,
                 }
             ].sort(compareStudents),
         });
     };
+
+    const createStudent = async (classroomName: string, { studentName }: StudentFormValues) =>
+        insertStudent(classroomName, { name: studentName, id: uuid() });
 
     const fetchClassroom = async (classroomName: string) => {
         await sleep(400);
@@ -73,18 +76,37 @@ const ClassroomsContainer: React.FC = () => {
         });
     };
 
+    const moveStudent = async (sourceClassroomName: string, destinationClassroomName: string, studentId: string) => {
+        await sleep();
+
+        const sourceClassroom = await localforage.getItem<Classroom>(sourceClassroomName) as Classroom;
+
+        const studentToMove = sourceClassroom.students.find(({ id }) => id === studentId);
+
+        if (!studentToMove) return sourceClassroom;
+
+        const [source] = await Promise.all([
+            removeStudent(sourceClassroomName, studentId),
+            insertStudent(destinationClassroomName, studentToMove)
+        ]);
+
+        return source as Classroom;
+    };
+
     return (
         <Router basename={process.env.PUBLIC_URL}>
             <div className={classes.wrapper}>
                 <ClassroomsList
                     isLoading={isLoadingClassrooms}
                     classrooms={classrooms}
-                    addClassroom={(v) => addClassroom(v)}
+                    addClassroom={(v) => createClassroom(v)}
                 />
-                <StudentsList
-                    addStudent={addStudent}
+                <StudentsListWrapper
+                    addStudent={createStudent}
                     fetchClassroom={fetchClassroom}
                     removeStudent={removeStudent}
+                    moveStudent={moveStudent}
+                    classrooms={classrooms}
                 />
             </div>
         </Router>

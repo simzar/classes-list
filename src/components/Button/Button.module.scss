@@ -19,6 +19,14 @@
             fill: #AD0934;
         }
     }
+
+    &:disabled {
+        cursor: default;
+
+        svg {
+            fill: #AD093460;
+        }
+    }
 }
 
 .loading {
