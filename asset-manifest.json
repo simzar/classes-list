@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/classroom-manager/static/css/main.20b0a767.chunk.css",
-    "main.js": "/classroom-manager/static/js/main.394db7dc.chunk.js",
-    "main.js.map": "/classroom-manager/static/js/main.394db7dc.chunk.js.map",
+    "main.js": "/classroom-manager/static/js/main.da95bdce.chunk.js",
+    "main.js.map": "/classroom-manager/static/js/main.da95bdce.chunk.js.map",
     "runtime-main.js": "/classroom-manager/static/js/runtime-main.6cc6dc51.js",
     "runtime-main.js.map": "/classroom-manager/static/js/runtime-main.6cc6dc51.js.map",
-    "static/js/2.aa14d6ec.chunk.js": "/classroom-manager/static/js/2.aa14d6ec.chunk.js",
-    "static/js/2.aa14d6ec.chunk.js.map": "/classroom-manager/static/js/2.aa14d6ec.chunk.js.map",
+    "static/js/2.16e25986.chunk.js": "/classroom-manager/static/js/2.16e25986.chunk.js",
+    "static/js/2.16e25986.chunk.js.map": "/classroom-manager/static/js/2.16e25986.chunk.js.map",
     "index.html": "/classroom-manager/index.html",
     "static/css/main.20b0a767.chunk.css.map": "/classroom-manager/static/css/main.20b0a767.chunk.css.map",
-    "static/js/2.aa14d6ec.chunk.js.LICENSE.txt": "/classroom-manager/static/js/2.aa14d6ec.chunk.js.LICENSE.txt",
+    "static/js/2.16e25986.chunk.js.LICENSE.txt": "/classroom-manager/static/js/2.16e25986.chunk.js.LICENSE.txt",
     "static/media/add.c0e6a8f8.svg": "/classroom-manager/static/media/add.c0e6a8f8.svg",
     "static/media/move.80152e7c.svg": "/classroom-manager/static/media/move.80152e7c.svg",
     "static/media/remove.839c96a5.svg": "/classroom-manager/static/media/remove.839c96a5.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.6cc6dc51.js",
-    "static/js/2.aa14d6ec.chunk.js",
+    "static/js/2.16e25986.chunk.js",
     "static/css/main.20b0a767.chunk.css",
-    "static/js/main.394db7dc.chunk.js"
+    "static/js/main.da95bdce.chunk.js"
   ]
 }
