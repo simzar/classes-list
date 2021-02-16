@@ -13,7 +13,7 @@ const Button: React.ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
     type = 'button',
     Icon,
     alt,
-    className,
+    className = '',
     disabled = false,
     isLoading = false,
     ...restProps
