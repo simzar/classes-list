@@ -5,7 +5,7 @@
     "classroomsContainer.alt.add": "Add",
 
     "studentsList.students": "{studentsCount} {studentsCount, plural, one {student} other {students}}",
-    "studentsList.empty": "Please select a classroom",
+    "studentsList.empty": "Create or select a classroom",
     "studentsList.moveTo": "Move to",
     "studentsList.alt.moveTo": "Move to",
     "studentsList.alt.remove": "Remove",

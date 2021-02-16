@@ -34,7 +34,7 @@ describe('ClassroomsList', () => {
         await findByText('1A');
         await findByText('2B');
         await findByText('3C');
-        await findByText('Please select a classroom');
+        await findByText('Create or select a classroom');
     });
 
     it('should navigate to a classroom and list students', async () => {

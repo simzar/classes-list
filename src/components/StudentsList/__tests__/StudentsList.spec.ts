@@ -36,7 +36,7 @@ describe('StudentsList', () => {
         const { findByText } = renderComponent({ fetchClassroom });
 
         await findByText('0 students');
-        await findByText('Please select a classroom');
+        await findByText('Create or select a classroom');
     });
 
     it('should insert a new student', async () => {
