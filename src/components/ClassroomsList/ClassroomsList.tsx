@@ -19,6 +19,7 @@ interface ClassroomsListProps extends WithIntlProp {
 const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroom, intl, isLoading }) => {
     const [showClassroomInput, setShowClassroomInput] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         showClassroomInput && inputRef.current?.focus();
@@ -33,6 +34,7 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
                         await addClassroom(values);
                         resetForm();
                         setShowClassroomInput(false);
+                        buttonRef.current?.focus();
                     } catch (e) {
                         setErrors({ name: e.message });
                         console.error(e);
@@ -54,6 +56,7 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
                                         e.preventDefault();
                                         setShowClassroomInput(true)
                                     }}
+                                    ref={buttonRef}
                                 />
                             </div>
                             <div className={classes.list}>

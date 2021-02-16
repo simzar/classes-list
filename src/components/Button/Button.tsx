@@ -1,4 +1,4 @@
-import React, { HTMLProps, MouseEventHandler, RefObject, SVGProps } from 'react';
+import React, { forwardRef, HTMLProps, MouseEventHandler, SVGProps } from 'react';
 import classes from './Button.module.scss';
 
 interface ButtonProps extends HTMLProps<HTMLButtonElement> {
@@ -9,7 +9,7 @@ interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     isLoading?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button: React.ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = ({
     type = 'button',
     Icon,
     alt,
@@ -17,14 +17,15 @@ const Button: React.FC<ButtonProps> = ({
     disabled = false,
     isLoading = false,
     ...restProps
-}) => (
+}, ref) => (
     <button
         {...restProps}
         disabled={disabled || isLoading}
         className={`${classes.root} ${isLoading ? classes.loading : ''} ${className}`}
+        ref={ref}
     >
         <Icon title={alt} />
     </button>
 );
 
-export default Button;
+export default forwardRef<HTMLButtonElement, ButtonProps>(Button);
