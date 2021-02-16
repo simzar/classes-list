@@ -23,10 +23,10 @@
         // https://username.github.io/repo-name/?/one/two&a=b~and~c=d#qwe
         // Otherwise, leave pathSegmentsToKeep as 0.
         var pathSegmentsToKeep = 0;
-
         var l = window.location;
+        console.log(l);
         l.replace(
-            l.protocol + '//' + l.hostname + l.pathname.split('/')[0]
+            l.protocol + '//' + l.hostname + l.pathname.split('/').slice(0, 1).join('/')
             // (l.port ? ':' + l.port : '') +
              //+
             // l.pathname.split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
