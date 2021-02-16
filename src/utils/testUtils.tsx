@@ -1,14 +1,17 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { IntlProvider } from 'react-intl';
+import { injectIntl, IntlProvider } from 'react-intl';
+import { BrowserRouter as Router } from 'react-router-dom';
+import messages from '../lang/en.json';
 
-export const renderWithIntl = (Component: React.ComponentType<any>, props: any = {}, locale = "en") => {
-    return render(
-        <IntlProvider locale={locale}>
-            <Component {...props} />
+export const renderWithProviders = (Component: React.ComponentType<any>, props: any = {}, locale = "en") =>
+    render(
+        <IntlProvider locale={locale} messages={messages.translations}>
+            <Router>
+                <Component {...props} />
+            </Router>
         </IntlProvider>
     );
-}
 
-export const renderWithMockedIntlProp = (component: React.ComponentType<any>, props: any = {}, locale = "en") =>
-    renderWithIntl(component, { intl: { formatMessage: (({ id }: { id: string }) => id) }, ...props}, locale);
+export const renderWithInjectedIntl = (component: React.ComponentType<any>, props: any = {}, locale = "en") =>
+    renderWithProviders(injectIntl(component), props, locale);

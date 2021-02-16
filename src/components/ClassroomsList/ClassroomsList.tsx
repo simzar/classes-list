@@ -10,9 +10,9 @@ import { Formik, Field, Form } from 'formik';
 import { MAX_CLASSROOM_NAME_LENGTH } from '../../utils/constants';
 import { executeOnEnter } from '../../utils';
 
-interface ClassroomsListProps extends WithIntlProp {
+export interface ClassroomsListProps extends WithIntlProp {
     classrooms: ClassroomPreview[];
-    addClassroom: (classroom: ClassroomFormValues) => void;
+    addClassroom: (classroom: ClassroomFormValues) => Promise<void>;
     isLoading: boolean;
 }
 
@@ -75,7 +75,7 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
                                 <Field
                                     name="name"
                                     component={InputField}
-                                    placeholder="Add Class"
+                                    placeholder={intl.formatMessage({ id: 'classroomsContainer.placeholder.addClass' })}
                                     disabled={isSubmitting || isLoading}
                                     onChange={(e: FormEvent<HTMLInputElement>) =>
                                         setFieldValue('name', e.currentTarget.value?.toUpperCase())}

@@ -1,8 +1,9 @@
 import React from 'react';
-import StudentsList, { StudentsListProps } from '../StudentsList/StudentsList';
 import { useLocation } from 'react-router-dom';
+import StudentsList from '../StudentsList';
+import { StudentsListProps } from '../StudentsList/StudentsList';
 
-const StudentsListWrapper: React.FC<Omit<StudentsListProps, 'classroomName'>> = (props) => {
+const StudentsListWrapper: React.FC<Omit<StudentsListProps, 'intl' | 'classroomName'>> = (props) => {
     const { pathname } = useLocation();
     const classroomName = pathname?.slice(1);
 

@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 import StudentsListItem, { StudentsListItemProps } from '../StudentsListItem';
-import { renderWithMockedIntlProp } from '../../../utils/testUtils';
+import { renderWithInjectedIntl } from '../../../utils/testUtils';
 
 describe('StudentsListItem', () => {
     const defaultProps: Omit<StudentsListItemProps, 'intl'> = {
@@ -12,13 +12,13 @@ describe('StudentsListItem', () => {
     };
 
     const renderComponent = (props: Partial<StudentsListItemProps> = {}) =>
-        renderWithMockedIntlProp(StudentsListItem, {...defaultProps, ...props});
+        renderWithInjectedIntl(StudentsListItem, {...defaultProps, ...props});
 
     it('should disable move and remove actions while removing a student', () => {
         const handleRemoveClick = jest.fn().mockReturnValue(new Promise(() => {}));
         const { getByTitle, queryByText } = renderComponent({ handleRemoveClick });
-        const removeButton = getByTitle('studentsList.alt.remove').parentElement as HTMLButtonElement;
-        const moveButton = getByTitle('studentsList.alt.moveTo').parentElement as HTMLButtonElement;
+        const removeButton = getByTitle('Remove').parentElement as HTMLButtonElement;
+        const moveButton = getByTitle('Move to').parentElement as HTMLButtonElement;
 
         fireEvent.click(removeButton);
 
@@ -37,8 +37,8 @@ describe('StudentsListItem', () => {
         const handleMoveClick = jest.fn().mockReturnValue(new Promise(() => {}));
         const handleRemoveClick = jest.fn();
         const { getByTitle, getByText } = renderComponent({ handleMoveClick, handleRemoveClick });
-        const moveButton = getByTitle('studentsList.alt.moveTo').parentElement as HTMLButtonElement;
-        const removeButton = getByTitle('studentsList.alt.remove').parentElement as HTMLButtonElement;
+        const moveButton = getByTitle('Move to').parentElement as HTMLButtonElement;
+        const removeButton = getByTitle('Remove').parentElement as HTMLButtonElement;
 
         fireEvent.click(moveButton);
         fireEvent.click(getByText('4A'));

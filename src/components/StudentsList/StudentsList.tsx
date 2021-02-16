@@ -1,14 +1,14 @@
 import React, { HTMLProps, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import classes from './StudentsList.module.scss';
-import { Classroom, ClassroomPreview, Student, StudentFormValues } from '../../utils/types';
+import { Classroom, ClassroomPreview, Student, StudentFormValues, WithIntlProp } from '../../utils/types';
 import StudentsListItem from '../StudentsListItem';
 import { Field, Form, Formik } from 'formik';
 import InputField from '../InputField';
 import { MAX_STUDENT_NAME_LENGTH } from '../../utils/constants';
 import { executeOnEnter } from '../../utils';
 
-export interface StudentsListProps {
+export interface StudentsListProps extends WithIntlProp {
     addStudent: (classroomName: string, values: StudentFormValues) => Promise<Classroom>;
     removeStudent: (classroomName: string, studentId: string) => Promise<Classroom>;
     fetchClassroom: (classroomName: string) => Promise<Classroom | null>;
@@ -24,6 +24,7 @@ const StudentsList: React.FC<StudentsListProps> = ({
     classrooms,
     moveStudent,
     classroomName,
+    intl,
 }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const componentRef = useRef<boolean>(false);
@@ -73,7 +74,11 @@ const StudentsList: React.FC<StudentsListProps> = ({
     return (
         <div key={classroomName} className={classes.wrapper}>
             <h1>
-                {isLoading ? 'Loading' : isNoClassSelected ? 'Please select a classroom' : classroomName}
+                {isLoading
+                    ? <FormattedMessage id="common.loading" />
+                    : isNoClassSelected
+                        ? <FormattedMessage id="studentsList.empty" />
+                        : classroomName}
                 <span className={classes.headerSubtext}>
                     <FormattedMessage
                         id="studentsList.students"
@@ -104,7 +109,7 @@ const StudentsList: React.FC<StudentsListProps> = ({
                                 className={classes.input}
                                 name="studentName"
                                 component={InputField}
-                                placeholder="Add Student"
+                                placeholder={intl.formatMessage({ id: 'studentsList.placeholder.addStudent' })}
                                 disabled={isSubmitting || isLoading}
                                 inputRef={inputRef}
                                 maxLength={MAX_STUDENT_NAME_LENGTH}

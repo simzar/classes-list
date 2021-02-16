@@ -27,7 +27,6 @@ export const compareStudents = ({ name: aName }: Student, { name: bName }: Stude
     return aName?.toLowerCase() < bName?.toLowerCase() ? -1 : 1;
 }
 
-
 export const executeOnEnter = (event: HTMLProps<KeyboardEvent>, fn: Function) => {
     event.key === 'Enter' && fn();
 };

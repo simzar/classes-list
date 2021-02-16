@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 import SelectMenu, { SelectMenuProps } from '../SelectMenu';
-import { renderWithIntl } from '../../../utils/testUtils';
+import { renderWithProviders } from '../../../utils/testUtils';
 
 describe('SelectMenu', () => {
     const defaultProps: SelectMenuProps = {
@@ -12,7 +12,7 @@ describe('SelectMenu', () => {
     };
 
     const renderComponent = (props: Partial<SelectMenuProps> = {}) =>
-        renderWithIntl(SelectMenu, {...defaultProps, ...props});
+        renderWithProviders(SelectMenu, {...defaultProps, ...props});
 
     it('should render given menu items', async () => {
         const { queryByText } = renderComponent();

@@ -5,8 +5,12 @@
     "classroomsContainer.alt.add": "Add",
 
     "studentsList.students": "{studentsCount} {studentsCount, plural, one {student} other {students}}",
+    "studentsList.empty": "Please select a classroom",
     "studentsList.moveTo": "Move to",
     "studentsList.alt.moveTo": "Move to",
-    "studentsList.alt.remove": "Remove"
+    "studentsList.alt.remove": "Remove",
+    "studentsList.placeholder.addStudent": "Add Student",
+
+    "common.loading": "Loading"
   }
 }
