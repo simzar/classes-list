@@ -86,8 +86,6 @@ const ClassroomsContainer: React.FC = () => {
     };
 
     const moveStudent = async (sourceClassroomName: string, destinationClassroomName: string, studentId: string) => {
-        await sleep();
-
         const sourceClassroom = await localforage.getItem<Classroom>(sourceClassroomName) as Classroom;
 
         const studentToMove = sourceClassroom.students.find(({ id }) => id === studentId);
