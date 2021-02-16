@@ -32,7 +32,7 @@ const StudentsList: React.FC<StudentsListProps> = ({
     const [students, setStudents] = useState<Student[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isNoClassSelected, setIsNoClassSelected] = useState<boolean>(false);
-    const [otherClassrooms, setOtherClassrooms] = useState<ClassroomPreview[]>([]);
+    const [moveToOptions, setMoveToOptions] = useState<ClassroomPreview[]>([]);
 
     useEffect(() => {
         const loadStudents = async () => {
@@ -54,7 +54,7 @@ const StudentsList: React.FC<StudentsListProps> = ({
     }, [classroomName]);
 
     useEffect(() => {
-        setOtherClassrooms(classrooms.filter(classroom => classroom !== classroomName));
+        setMoveToOptions(classrooms.filter(classroom => classroom !== classroomName));
     }, [classrooms, classroomName]);
 
     const handleRemoveStudent = async (studentId: string) => {
@@ -125,7 +125,7 @@ const StudentsList: React.FC<StudentsListProps> = ({
                         key={student.id}
                         handleMoveClick={(destination) => handleMoveStudent(classroomName, destination, student.id)}
                         handleRemoveClick={(id) => handleRemoveStudent(id)}
-                        moveToOptions={otherClassrooms}
+                        moveToOptions={moveToOptions}
                         {...student}
                     />
                 ))}

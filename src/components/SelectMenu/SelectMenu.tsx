@@ -13,7 +13,6 @@ export interface SelectMenuProps {
     handleClose: () => void;
 }
 
-// TODO: all aria attributes, etc.
 const SelectMenu: React.FC<SelectMenuProps> = ({ title, items, handleSelect, anchorElement, handleClose }) => (
     <MuiThemeProvider theme={unstable_createMuiStrictModeTheme()}>
         <Menu
