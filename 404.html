@@ -24,7 +24,12 @@
         // Otherwise, leave pathSegmentsToKeep as 0.
         var pathSegmentsToKeep = 0;
         var l = window.location;
+        console.log({l});
         console.log(l);
+        console.log(l.host);
+        console.log(l.ancestorOrigins);
+        console.log(l.search);
+        console.log(l.pathname);
         l.replace(
             l.protocol + '//' + l.hostname + l.pathname.split('/').slice(0, 1).join('/')
             // (l.port ? ':' + l.port : '') +
