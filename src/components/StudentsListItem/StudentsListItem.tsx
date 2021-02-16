@@ -6,14 +6,13 @@ import { ReactComponent as Move } from '../../assets/icons/move.svg';
 import { ReactComponent as Remove } from '../../assets/icons/remove.svg';
 import SelectMenu from '../SelectMenu';
 
-interface StudentsListItemProps extends Student, WithIntlProp {
+export interface StudentsListItemProps extends Student, WithIntlProp {
     handleMoveClick: (id: string) => void;
     handleRemoveClick: (id: string) => void;
     moveToOptions: ClassroomPreview[];
 }
 
 const StudentsListItem: React.FC<StudentsListItemProps> = ({ id, name, handleMoveClick, handleRemoveClick, intl, moveToOptions }) => {
-    // FIXME: type
     const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLButtonElement | null>(null);
     const [isRemoving, setIsRemoving] = useState<boolean>(false);
     const [isMoving, setIsMoving] = useState<boolean>(false);
@@ -50,7 +49,7 @@ const StudentsListItem: React.FC<StudentsListItemProps> = ({ id, name, handleMov
                     alt={intl.formatMessage({ id: 'studentsList.alt.remove' })}
                 />
                 <SelectMenu
-                    title="Move to"
+                    title={intl.formatMessage({ id: 'studentsList.moveTo' })}
                     handleClose={() => setMenuAnchorElement(null)}
                     items={moveToOptions}
                     handleSelect={(v) => onMoveClick(v)}
