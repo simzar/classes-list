@@ -84,15 +84,17 @@ const StudentsList: React.FC<StudentsListProps> = ({
             {classroomName && (
                 <Formik
                     initialValues={{ studentName: '' }}
-                    onSubmit={async (values, { resetForm }) => {
+                    onSubmit={async (values, { resetForm, setErrors }) => {
                         try {
                             const classroom = await addStudent(classroomName, values);
 
                             resetForm();
                             setStudents(classroom.students);
-                            //    TODO: focus magic
+                            inputRef.current?.focus();
                         } catch (e) {
                             console.error(e);
+                            setErrors({ studentName: e.message });
+                            setTimeout(() => inputRef.current?.focus());
                         }
                     }}
                 >
@@ -104,7 +106,6 @@ const StudentsList: React.FC<StudentsListProps> = ({
                                 component={InputField}
                                 placeholder="Add Student"
                                 disabled={isSubmitting || isLoading}
-                                validate={(value: string) => !!value?.trim() ? undefined : 'Value cannot be empty'}
                                 inputRef={inputRef}
                                 maxLength={MAX_STUDENT_NAME_LENGTH}
                                 onKeyDown={(event: HTMLProps<KeyboardEvent>) => executeOnEnter(event, submitForm)}
@@ -113,15 +114,17 @@ const StudentsList: React.FC<StudentsListProps> = ({
                     )}
                 </Formik>
             )}
-            {students?.map(student => (
-                <StudentsListItem
-                    key={student.id}
-                    handleMoveClick={(destination) => handleMoveStudent(classroomName, destination, student.id)}
-                    handleRemoveClick={(id) => handleRemoveStudent(id)}
-                    moveToOptions={otherClassrooms}
-                    {...student}
-                />
-            ))}
+            <div className={classes.list}>
+                {students?.map(student => (
+                    <StudentsListItem
+                        key={student.id}
+                        handleMoveClick={(destination) => handleMoveStudent(classroomName, destination, student.id)}
+                        handleRemoveClick={(id) => handleRemoveStudent(id)}
+                        moveToOptions={otherClassrooms}
+                        {...student}
+                    />
+                ))}
+            </div>
         </div>
     );
 }

@@ -20,6 +20,7 @@ const InputField: React.FC<InputFieldProps> = ({
     inputRef,
     maxLength,
     submitForm,
+    form: { errors },
     ...restProps
 }) => (
     <TextField
@@ -31,6 +32,8 @@ const InputField: React.FC<InputFieldProps> = ({
         disabled={disabled}
         inputRef={inputRef}
         inputProps={{ maxLength }}
+        error={!!errors[field.name]}
+        helperText={errors[field.name]}
     />
 );
 

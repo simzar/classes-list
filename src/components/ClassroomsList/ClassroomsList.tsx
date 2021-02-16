@@ -21,7 +21,6 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        // FIXME: check why the focus does not get set
         showClassroomInput && inputRef.current?.focus();
     }, [showClassroomInput, inputRef]);
 
@@ -29,13 +28,15 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
         <div className={classes.wrapper}>
             <Formik
                 initialValues={{ name: '' }}
-                onSubmit={async (values, { resetForm }) => {
+                onSubmit={async (values, { resetForm, setErrors }) => {
                     try {
                         await addClassroom(values);
                         resetForm();
                         setShowClassroomInput(false);
                     } catch (e) {
+                        setErrors({ name: e.message });
                         console.error(e);
+                        setTimeout(() => inputRef.current?.focus());
                     }
                 }}
             >
@@ -75,7 +76,6 @@ const ClassroomsList: React.FC<ClassroomsListProps> = ({ classrooms, addClassroo
                                     disabled={isSubmitting || isLoading}
                                     onChange={(e: FormEvent<HTMLInputElement>) =>
                                         setFieldValue('name', e.currentTarget.value?.toUpperCase())}
-                                    validate={(value: string) => !!value?.trim() ? undefined : 'Value cannot be empty'}
                                     inputRef={inputRef}
                                     maxLength={MAX_CLASSROOM_NAME_LENGTH}
                                     onKeyDown={(event: HTMLProps<KeyboardEvent>) => executeOnEnter(event, submitForm)}

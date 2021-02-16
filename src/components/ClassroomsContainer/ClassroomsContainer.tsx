@@ -28,6 +28,11 @@ const ClassroomsContainer: React.FC = () => {
 
     const createClassroom = async ({ name }: ClassroomFormValues) => {
         await sleep();
+
+        if (!name?.trim()) {
+            throw new Error('Value cannot be empty');
+        }
+
         const existingClassroom = await localforage.getItem(name);
 
         if (existingClassroom) {
@@ -41,6 +46,10 @@ const ClassroomsContainer: React.FC = () => {
 
     const insertStudent = async (classroomName: string, { name, id }: Student) => {
         await sleep(400);
+
+        if (!name?.trim()) {
+            throw new Error('Value cannot be empty');
+        }
 
         const existingClassroom = await localforage.getItem<Classroom>(classroomName) as Classroom;
 
