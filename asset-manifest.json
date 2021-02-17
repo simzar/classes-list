@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/classroom-manager/static/css/main.4c470089.chunk.css",
-    "main.js": "/classroom-manager/static/js/main.d6cbedc9.chunk.js",
-    "main.js.map": "/classroom-manager/static/js/main.d6cbedc9.chunk.js.map",
+    "main.js": "/classroom-manager/static/js/main.8695edd6.chunk.js",
+    "main.js.map": "/classroom-manager/static/js/main.8695edd6.chunk.js.map",
     "runtime-main.js": "/classroom-manager/static/js/runtime-main.6cc6dc51.js",
     "runtime-main.js.map": "/classroom-manager/static/js/runtime-main.6cc6dc51.js.map",
     "static/js/2.16e25986.chunk.js": "/classroom-manager/static/js/2.16e25986.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.6cc6dc51.js",
     "static/js/2.16e25986.chunk.js",
     "static/css/main.4c470089.chunk.css",
-    "static/js/main.d6cbedc9.chunk.js"
+    "static/js/main.8695edd6.chunk.js"
   ]
 }
