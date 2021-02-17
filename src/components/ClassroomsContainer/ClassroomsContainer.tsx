@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import localforage from 'localforage';
 import { v4 as uuid } from 'uuid';
@@ -26,7 +26,7 @@ const ClassroomsContainer: React.FC = () => {
         setIsLoadingClassrooms(false);
     };
 
-    const createClassroom = async ({ name }: ClassroomFormValues) => {
+    const createClassroom = useCallback(async ({ name }: ClassroomFormValues) => {
         await sleep();
 
         if (!name?.trim()) {
@@ -42,9 +42,9 @@ const ClassroomsContainer: React.FC = () => {
         await localforage.setItem<Classroom>(name, { id: uuid(), name, students: [] });
 
         setClassrooms([...classrooms, name].sort(naivelyCompareClassrooms));
-    };
+    }, [classrooms]);
 
-    const insertStudent = async (classroomName: string, { name, id }: Student) => {
+    const insertStudent = useCallback(async (classroomName: string, { name, id }: Student) => {
         await sleep(400);
 
         if (!name?.trim()) {
@@ -63,18 +63,18 @@ const ClassroomsContainer: React.FC = () => {
                 }
             ].sort(compareStudents),
         });
-    };
+    }, []);
 
-    const createStudent = async (classroomName: string, { studentName }: StudentFormValues) =>
-        insertStudent(classroomName, { name: studentName, id: uuid() });
+    const createStudent = useCallback(async (classroomName: string, { studentName }: StudentFormValues) =>
+        insertStudent(classroomName, { name: studentName, id: uuid() }), [insertStudent]);
 
-    const fetchClassroom = async (classroomName: string) => {
+    const fetchClassroom = useCallback(async (classroomName: string) => {
         await sleep(400);
 
         return localforage.getItem<Classroom>(classroomName);
-    };
+    }, []);
 
-    const removeStudent = async (classroomName: string, studentId: string) => {
+    const removeStudent = useCallback(async (classroomName: string, studentId: string) => {
         await sleep();
 
         const existingClassroom = await localforage.getItem<Classroom>(classroomName) as Classroom;
@@ -83,9 +83,9 @@ const ClassroomsContainer: React.FC = () => {
             ...existingClassroom,
             students: existingClassroom.students.filter(({ id }) => id !== studentId),
         });
-    };
+    }, []);
 
-    const moveStudent = async (sourceClassroomName: string, destinationClassroomName: string, studentId: string) => {
+    const moveStudent = useCallback(async (sourceClassroomName: string, destinationClassroomName: string, studentId: string) => {
         const sourceClassroom = await localforage.getItem<Classroom>(sourceClassroomName) as Classroom;
 
         const studentToMove = sourceClassroom.students.find(({ id }) => id === studentId);
@@ -98,7 +98,7 @@ const ClassroomsContainer: React.FC = () => {
         ]);
 
         return source as Classroom;
-    };
+    }, [insertStudent, removeStudent]);
 
     return (
         <Router basename={process.env.PUBLIC_URL}>
